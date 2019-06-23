@@ -9,6 +9,8 @@ public class TestModel {
 		for(StudenteCorso s:model.getFrequency())
 		System.out.println(s);
 		model.contaCorsi();
+		for(Corso c:model.getMinimoCorsi())
+			System.out.println(c);
 	}
 
 }
