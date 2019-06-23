@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConnectDB {
 
-	static private final String jdbcUrl = "jdbc:mysql://localhost/iscrittiCorsi?user=root";
+	static private final String jdbcUrl = "jdbc:mysql://localhost/iscritti_corsi_gestionale?useTimezone=true&serverTimezone=UTC&user=root&password=admin";
 	static private Connection connection = null;
 
 	public static Connection getConnection() {

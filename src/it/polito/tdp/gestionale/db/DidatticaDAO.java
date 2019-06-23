@@ -11,13 +11,14 @@ import java.util.Map;
 
 import it.polito.tdp.gestionale.model.Corso;
 import it.polito.tdp.gestionale.model.Studente;
+import it.polito.tdp.gestionale.model.StudenteCorso;
 
 public class DidatticaDAO {
 
 	/*
 	 * Ottengo tutti gli studenti iscritti al Corso
 	 */
-	public void getStudentiIscrittiAlCorso(Corso corso, Map<Integer, Studente> mapStudenti) {
+	public List<Studente> getStudentiIscrittiAlCorso(Corso corso, Map<Integer, Studente> mapStudenti) {
 		final String sql = "SELECT studente.matricola FROM iscrizione, studente WHERE iscrizione.matricola=studente.matricola AND codins=?";
 
 		List<Studente> studentiIscrittiAlCorso = new ArrayList<Studente>();
@@ -45,6 +46,7 @@ public class DidatticaDAO {
 			// e.printStackTrace();
 			throw new RuntimeException("Errore Db");
 		}
+		return studentiIscrittiAlCorso;
 	}
 
 	/*
@@ -79,7 +81,7 @@ public class DidatticaDAO {
 	/*
 	 * Ottengo tutti gli studenti salvati nel Db
 	 */
-	public List<Studente> getTuttiStudenti() {
+	public List<Studente> getTuttiStudenti(Map<Integer,Studente> map) {
 
 		final String sql = "SELECT * FROM studente";
 
@@ -95,6 +97,31 @@ public class DidatticaDAO {
 
 				Studente s = new Studente(rs.getInt("matricola"), rs.getString("cognome"), rs.getString("nome"), rs.getString("CDS"));
 				studenti.add(s);
+				map.put(s.getMatricola(), s);
+			}
+
+			return studenti;
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException("Errore Db");
+		}
+	}
+	public List<StudenteCorso> getFrequenza(Map<Integer,Studente>idMap, Studente studente){
+
+		final String sql = "SELECT count(*) as cntFROM iscrizione WHERE matricola=?";
+
+		List<StudenteCorso> studenti = new LinkedList<StudenteCorso>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, studente.getMatricola());
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+
+//				studenti.add(new StudenteCorso(rs.getInt(studente), rs.getInt("cnt")));
 			}
 
 			return studenti;

@@ -3,7 +3,7 @@ package it.polito.tdp.gestionale.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Studente {
+public class Studente extends Nodo{
 
 	private List<Corso> corsi;
 	private int matricola;
@@ -73,4 +73,10 @@ public class Studente {
 	public void setCorsi(List<Corso> corsi) {
 		this.corsi = corsi;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Studente [matricola=%s, cognome=%s, nome=%s]", matricola, cognome, nome);
+	}
+	
 }
