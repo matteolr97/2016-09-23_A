@@ -79,4 +79,5 @@ public class Studente extends Nodo{
 		return String.format("Studente [matricola=%s, cognome=%s, nome=%s]", matricola, cognome, nome);
 	}
 	
+	
 }

@@ -75,4 +75,11 @@ public class Corso extends Nodo{
 	public void setStudenti(List<Studente> studenti) {
 		this.studenti = studenti;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Corso [studenti=%s, codins=%s, nome=%s, crediti=%s, pd=%s]", studenti, codins, nome,
+				crediti, pd);
+	}
+	
 }
